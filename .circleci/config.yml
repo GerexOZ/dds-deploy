@@ -8,7 +8,7 @@ executors:
       - image: 'cimg/openjdk:17.0'
 jobs:
   say-hello:
-     docker:
+     dockedfdsfr:
       - image: cimg/base:stable
      steps:
       - checkout
