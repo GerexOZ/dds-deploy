@@ -13,11 +13,11 @@ executors:
     docker:
       - image: 'cimg/openjdk:17.0'
   docker-publisher:
-  docker: 
-  - image: circleci/node:latest
-    auth:
-      username: $DOCKERHUB_USERNAME
-      password: $DOCKERHUB_PASSWORD
+    docker: 
+      - image: circleci/node:latest
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
 
 
 jobs:
