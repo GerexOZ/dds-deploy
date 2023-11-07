@@ -8,13 +8,13 @@ executors:
       - image: 'cimg/openjdk:17.0'
 jobs:
   say-hello:
-       docker:
+    docker:
       - image: cimg/base:stable
-       steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      steps:
+        - checkout
+        - run:
+            name: "Say hello"
+            command: "echo Hello, World!"
 
 workflows:
   say-hello-workflow:
