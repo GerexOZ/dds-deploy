@@ -13,8 +13,8 @@ executors:
   docker: 
   - image: circleci/node:latest
     auth:
-      username: danteannetta
-      password: river2806
+      username: $DOCKERHUB_USERNAME
+      password: $DOCKERHUB_PASSWORD
 
 
 jobs:
