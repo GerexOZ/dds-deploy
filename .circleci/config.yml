@@ -9,7 +9,10 @@ orbs:
   docker: circleci/docker@1.5.0
 
 executors:
- docker-publisher: 
+ docker-publisher:
+ java17:
+    docker:
+      - image: 'cimg/openjdk:17.0'
   docker: 
   - image: circleci/node:latest
     auth:
