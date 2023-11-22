@@ -13,12 +13,38 @@
 }
 */
 /* Requires the Docker Pipeline plugin */
+/*
 pipeline {
     agent { docker { image 'maven:3.9.5-eclipse-temurin-17-alpine' } }
     stages {
         stage('build') {
             steps {
                 sh 'mvn --version'
+            }
+        }
+    }
+}
+*/
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone sources') {
+            steps {
+                git url: 'https://github.com/DanteAnnetta/dds-deploy.git'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "./gradlew sonarqube"
+                }
+            }
+        }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
             }
         }
     }
