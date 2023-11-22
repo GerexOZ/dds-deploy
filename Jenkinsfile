@@ -29,11 +29,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone sources') {
+        /*stage('Clone sources') {
             steps {
                 git url: 'https://github.com/DanteAnnetta/dds-deploy.git'
             }
-        }
+        }*/
 
         stage('SonarQube analysis') {
             steps {
