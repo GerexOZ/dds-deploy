@@ -40,7 +40,7 @@ pipeline {
             steps {
                 /*def scannerHome = tool 'SonarQubeScanner3'*/
                 withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh '''${scannerHome}/bin/sonar-scanner'''
                 }
             }
         }
