@@ -27,26 +27,29 @@ pipeline {
 */
 pipeline {
     agent any
-
     stages {
+        /*
         stage('Clone sources') {
             steps {
                 git url: 'https://github.com/DanteAnnetta/dds-deploy.git'
             }
         }
-        /*
+        */
         stage('SonarQube analysis') {
             steps {
+                def scannerHome = tool 'SonarQubeScanner3'
                 withSonarQubeEnv('SonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
+        /*
         stage("Quality gate") {
             steps {
                 waitForQualityGate abortPipeline: true
             }
         }
         */
+        
     }
 }
