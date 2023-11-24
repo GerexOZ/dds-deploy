@@ -57,25 +57,14 @@ pipeline {
 
 //START-OF-SCRIPT
 node {
-    def SONARQUBE_HOSTNAME = 'sonarqube'
-
-    def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
-    sh "${GRADLE_HOME}/bin/gradle tasks"
-
-    stage('prep') {
-        git url: 'https://github.com/DanteAnnetta/dds-deploy.git'                
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def mvn = tool 'Default Maven';
+    withSonarQubeEnv() {
+      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=dds-deploy -Dsonar.projectName='dds-deploy'"
     }
-
-    stage('build') {
-        sh "${GRADLE_HOME}/bin/gradle build"
-    }
-
-    stage('sonar-scanner') {
-      def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-      withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://172.174.178.218:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.java.binaries=build/**/* -Dsonar.language=java"
-      }
-    }
-
+  }
 }
 //END-OF-SCRIPT
